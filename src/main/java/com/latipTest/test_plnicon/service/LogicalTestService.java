@@ -2,6 +2,8 @@ package com.latipTest.test_plnicon.service;
 
 import com.latipTest.test_plnicon.library.Response;
 import com.latipTest.test_plnicon.library.ResponseCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.Map;
 
 @Service
 public class LogicalTestService {
+    Logger logger = LoggerFactory.getLogger(LogicalTestService.class);
 //    soal 1
     public Response<?>balikKalimat(){
         Response<List<Map<String, String>>> response = new Response<>();
@@ -30,12 +33,11 @@ public class LogicalTestService {
             response.setData(listHasil);
             response.setResponseCode(ResponseCode.SUCCESS);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
             response.setResponseCode(ResponseCode.SERVER_ERROR);
         }
         return response;
     }
-
     private String reverseEachWord(String sentence) {
         if (sentence == null || sentence.isEmpty()) return sentence;
         String[] words = sentence.split(" ");
@@ -68,7 +70,7 @@ public class LogicalTestService {
             response.setData(hasil);
             response.setResponseCode(ResponseCode.SUCCESS);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
             response.setResponseCode(ResponseCode.SERVER_ERROR);
         }
         return response;
@@ -94,7 +96,7 @@ public class LogicalTestService {
             response.setData(nilai);
             response.setResponseCode(ResponseCode.SUCCESS);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
             response.setResponseCode(ResponseCode.SERVER_ERROR);
         }
         return response;
@@ -104,34 +106,21 @@ public class LogicalTestService {
     public Response<?> nilaiSaham() {
         Response<List<Integer>> response = new Response<>();
         try {
-            int[][] soal = {
-                    {7,8,3,10,8},
-                    {5,12,11,12,10},
-                    {7,18,27,10,29},
-                    {20,17,15,14,10}
-            };
+            int[][] soal = {{7,8,3,10,8},{5,12,11,12,10},{7,18,27,10,29},{20,17,15,14,10}};
             List<Integer> nilai = new ArrayList<>();
-
-            for (int i = 0; i < soal.length; i++) {
-                System.out.println("Soal " + (i+1) + ": " + keuntungan(soal[i]));
-                nilai.add(keuntungan(soal[i]));
-            }
-
+            for (int i = 0; i < soal.length; i++) {nilai.add(keuntungan(soal[i]));}
             response.setData(nilai);
             response.setResponseCode(ResponseCode.SUCCESS);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
             response.setResponseCode(ResponseCode.SERVER_ERROR);
         }
         return response;
     }
-
     private static int keuntungan(int[] harga){
         if (harga == null || harga.length < 2) return 0;
-
         int minHarga = harga[0];
         int maxUntung = 0;
-
         for (int i = 1; i < harga.length; i++) {
             int untungSekarang = harga[i] - minHarga;
             if (untungSekarang > maxUntung) {
@@ -161,7 +150,7 @@ public class LogicalTestService {
             response.setData(hasil);
             response.setResponseCode(ResponseCode.SUCCESS);
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.info(e.getMessage());
             response.setResponseCode(ResponseCode.SERVER_ERROR);
         }
         return response;
