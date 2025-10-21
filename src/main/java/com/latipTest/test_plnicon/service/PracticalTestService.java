@@ -83,6 +83,7 @@ public class PracticalTestService {
         } catch (Exception e) {
             logger.info(e.getMessage());
             response.setResponseCode(ResponseCode.SERVER_ERROR);
+            response.setMessage(e.getMessage());
         }
         return response;
     }
